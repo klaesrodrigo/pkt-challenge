@@ -1,14 +1,18 @@
 import IHobbie from 'src/entities/hobbie.entity';
+import IUserService from '../users/contracts/IUserService';
 import IHobbieService from './contracts/IHobbieService';
 import Hobbie from './hobbie.model';
 
 export default class HobbieService implements IHobbieService {
+  constructor(private readonly userService: IUserService) {}
   list = async (): Promise<IHobbie[]> => {
     return await Hobbie.find();
   };
 
-  create = async (hobbie: IHobbie): Promise<IHobbie> => {
-    return await Hobbie.create(hobbie);
+  create = async (user_id: string, hobbie: IHobbie): Promise<IHobbie> => {
+    const hobbieCreated = await Hobbie.create(hobbie);
+    await this.userService.addHobbie(user_id, hobbieCreated);
+    return hobbieCreated;
   };
 
   get = async (id: string): Promise<IHobbie> => {

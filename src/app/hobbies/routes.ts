@@ -6,7 +6,7 @@ const hobbieController = makeHobbieController();
 
 routes.get('/', hobbieController.list);
 routes.get('/:id', hobbieController.get);
-routes.post('/', hobbieController.create);
+routes.post('/user/:user_id', hobbieController.create);
 routes.put('/:id', hobbieController.update);
 routes.delete('/:id', hobbieController.delete);
 

@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { logger } from '../util/logger';
 import hobbieRoutes from '../app/hobbies/routes';
+import userRoutes from '../app/users/routes';
 
 const app = express();
 
@@ -11,6 +12,7 @@ mongoose
   .catch((err) => logger.error(err));
 
 app.use(express.json());
-app.use('/', hobbieRoutes);
+app.use('/hobbies', hobbieRoutes);
+app.use('/users', userRoutes);
 
 export default app;

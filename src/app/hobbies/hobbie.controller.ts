@@ -17,7 +17,10 @@ export default class HobbieController {
 
   create = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const response = await this.hobbieService.create(req.body);
+      const response = await this.hobbieService.create(
+        req.params.user_id,
+        req.body
+      );
       return res.status(201).json(response);
     } catch (err: any) {
       logger.error(err);

@@ -1,3 +1,4 @@
+import IHobbie from 'src/entities/hobbie.entity';
 import IUser from 'src/entities/user.entity';
 import IUserService from './contracts/IUserService';
 import User from './user.model';
@@ -12,7 +13,7 @@ export default class UserService implements IUserService {
   };
 
   get = async (id: string): Promise<IUser> => {
-    const user = await User.findOne({ _id: id });
+    const user = await User.findOne({ _id: id }).populate('hobbies');
 
     if (!user) {
       throw new Error('Hobbie not found');
@@ -27,5 +28,11 @@ export default class UserService implements IUserService {
 
   delete = async (id: string): Promise<void> => {
     await User.deleteOne({ _id: id });
+  };
+
+  addHobbie = async (user_id: string, hobbie: IHobbie): Promise<void> => {
+    const user = await this.get(user_id);
+    user.hobbies.push(hobbie);
+    await this.update(user, user_id);
   };
 }
