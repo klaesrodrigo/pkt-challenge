@@ -14,7 +14,7 @@ export default abstract class BaseController {
         .status(clientErrors.code)
         .send({ code: clientErrors.code, error: clientErrors.error });
     } else {
-      res.status(500).send({ code: 500, error: 'Something went wrong!' });
+      res.status(500).send({ code: 500, error: 'Intenal Server Error' });
     }
   }
 

@@ -5,7 +5,7 @@ export default class ApiError {
   public static format(error: APIError): APIErrorResponse {
     return {
       ...{
-        message: error.message || 'Something went wrong!',
+        message: error.message || 'Internal Server Error!',
         code: error.code || 500,
         error: error.codeAsString
           ? error.codeAsString
