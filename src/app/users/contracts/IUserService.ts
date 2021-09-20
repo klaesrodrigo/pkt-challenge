@@ -1,5 +1,5 @@
-import IHobbie from 'src/entities/hobbie.entity';
-import IUser from 'src/entities/user.entity';
+import IHobbie from 'src/entities/hobbie';
+import IUser from 'src/entities/user';
 
 export default interface IUserService {
   list: () => Promise<IUser[]>;

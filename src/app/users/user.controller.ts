@@ -1,57 +1,60 @@
 import { logger } from '../../util/logger';
 import { Request, Response } from 'express';
 import IUserService from './contracts/IUserService';
+import BaseController from '../../entities/baseController';
 
-export default class UserController {
-  constructor(private readonly userService: IUserService) {}
+export default class UserController extends BaseController {
+  constructor(private readonly userService: IUserService) {
+    super();
+  }
 
-  list = async (req: Request, res: Response): Promise<Response> => {
+  list = async (req: Request, res: Response): Promise<void> => {
     try {
       const response = await this.userService.list();
-      return res.json(response);
+      res.json(response);
     } catch (err: any) {
       logger.error(err);
-      return res.status(err.status_code || 500);
+      this.sendErrorResponse(res, err);
     }
   };
 
-  create = async (req: Request, res: Response): Promise<Response> => {
+  create = async (req: Request, res: Response): Promise<void> => {
     try {
       const response = await this.userService.create(req.body);
-      return res.status(201).json(response);
+      res.status(201).json(response);
     } catch (err: any) {
       logger.error(err);
-      return res.status(err.status_code || 500);
+      this.sendCreateUpdateErrorResponse(res, err);
     }
   };
 
-  get = async (req: Request, res: Response): Promise<Response> => {
+  get = async (req: Request, res: Response): Promise<void> => {
     try {
       const response = await this.userService.get(req.params.id);
-      return res.json(response);
+      res.json(response);
     } catch (err: any) {
       logger.error(err);
-      return res.status(err.status_code || 500);
+      this.sendErrorResponse(res, err);
     }
   };
 
-  update = async (req: Request, res: Response): Promise<Response> => {
+  update = async (req: Request, res: Response): Promise<void> => {
     try {
       await this.userService.update(req.body, req.params.id);
-      return res.status(204).json();
+      res.status(204).json();
     } catch (err: any) {
       logger.error(err);
-      return res.status(err.status_code || 500);
+      this.sendCreateUpdateErrorResponse(res, err);
     }
   };
 
-  delete = async (req: Request, res: Response): Promise<Response> => {
+  delete = async (req: Request, res: Response): Promise<void> => {
     try {
       await this.userService.delete(req.params.id);
-      return res.status(204).json();
+      res.status(204).json();
     } catch (err: any) {
       logger.error(err);
-      return res.status(500).json(err);
+      this.sendErrorResponse(res, err);
     }
   };
 }

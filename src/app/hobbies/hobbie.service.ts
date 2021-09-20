@@ -1,4 +1,5 @@
-import IHobbie from 'src/entities/hobbie.entity';
+import IHobbie from 'src/entities/hobbie';
+import NotFoundError from '../../util/error/notFoundError';
 import IUserService from '../users/contracts/IUserService';
 import IHobbieService from './contracts/IHobbieService';
 import Hobbie from './hobbie.model';
@@ -19,7 +20,7 @@ export default class HobbieService implements IHobbieService {
     const hobbie = await Hobbie.findOne({ _id: id });
 
     if (!hobbie) {
-      throw new Error('Hobbie not found');
+      throw new NotFoundError('Hobbie not found.', 404);
     }
 
     return hobbie;

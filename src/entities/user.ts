@@ -1,4 +1,4 @@
-import Hobbie from './hobbie.entity';
+import Hobbie from './hobbie';
 
 export default interface IUser {
   name: string;

@@ -1,5 +1,6 @@
-import IHobbie from 'src/entities/hobbie.entity';
-import IUser from 'src/entities/user.entity';
+import IHobbie from 'src/entities/hobbie';
+import IUser from 'src/entities/user';
+import NotFoundError from '../../util/error/notFoundError';
 import IUserService from './contracts/IUserService';
 import User from './user.model';
 
@@ -16,7 +17,7 @@ export default class UserService implements IUserService {
     const user = await User.findOne({ _id: id }).populate('hobbies');
 
     if (!user) {
-      throw new Error('Hobbie not found');
+      throw new NotFoundError('User not found.', 404);
     }
 
     return user;
