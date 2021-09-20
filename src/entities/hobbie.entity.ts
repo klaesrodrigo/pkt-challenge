@@ -1,3 +1,5 @@
+import { Document } from 'mongoose';
+
 enum ExperienceLevelEnum {
   LOW = 'Baixa',
   MEDIUM = 'Médio',
@@ -5,7 +7,7 @@ enum ExperienceLevelEnum {
   VERY_HIGH = 'Muito alta',
 }
 
-export default interface IHobbie {
+export default interface IHobbie extends Document {
   name: string;
   experienceLevel: ExperienceLevelEnum;
   year: number;
