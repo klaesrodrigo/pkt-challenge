@@ -41,3 +41,17 @@ Para rodar o teste, é necessário rodar o comando
 ## Informações adicionais
 
 A documentação do projeto é apresentada na rota /api/docs
+
+### Check list
+
+- [x] NodeJS com Typescript (Dica: Faça uma boa estrutura de diretórios com
+      controller, service, etc);
+- [x] Use Express, Hapi, Koa ou direto com AWS Lambda;
+- [x] Existem 2 diferentes collections do MongoDB: User {id, name, hobbies}, Hobbies
+      {id, experienceLevel, name, year}. Hobbies não são inseridos no schema User,
+      use MongoDB refs;
+- [x] Os endpoints são CRUD de users e hobbies;
+- [x] Instale o Swagger para validar os endpoints;
+- [x] Validar o payload da requisição do FE;
+- [x] Configurar a stack de testes e escrever pelo menos um teste como
+      demonstração.
