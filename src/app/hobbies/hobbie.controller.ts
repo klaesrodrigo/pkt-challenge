@@ -1,7 +1,7 @@
-import { logger } from '../../util/logger';
+import { logger } from '@src/util/logger';
 import { Request, Response } from 'express';
 import IHobbieService from './contracts/IHobbieService';
-import BaseController from '../../entities/baseController';
+import BaseController from '@src/entities/baseController';
 
 export default class HobbieController extends BaseController {
   constructor(private readonly hobbieService: IHobbieService) {

@@ -1,5 +1,5 @@
 import httpStatusCodes from 'http-status-codes';
-import { APIError, APIErrorResponse } from '../../entities/apiError';
+import { APIError, APIErrorResponse } from '@src/entities/apiError';
 
 export default class ApiError {
   public static format(error: APIError): APIErrorResponse {

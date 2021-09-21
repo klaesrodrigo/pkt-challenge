@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import mongoose from 'mongoose';
-import ApiError from '..//util/error/apiError';
+import ApiError from '@src/util/error/apiError';
 import { APIError } from './apiError';
 
 export default abstract class BaseController {

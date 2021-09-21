@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
-import { logger } from '../../util/logger';
+import { logger } from '@src/util/logger';
 
 export default class HobbieSchema {
   static async create(

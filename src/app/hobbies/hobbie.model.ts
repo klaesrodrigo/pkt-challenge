@@ -1,4 +1,4 @@
-import IHobbie from '../../entities/hobbie';
+import IHobbie from '@src/entities/hobbie';
 import { Model, model, Schema } from 'mongoose';
 
 const HobbieSchema: Schema = new Schema({

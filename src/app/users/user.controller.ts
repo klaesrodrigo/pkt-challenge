@@ -1,7 +1,7 @@
-import { logger } from '../../util/logger';
+import { logger } from '@src/util/logger';
 import { Request, Response } from 'express';
 import IUserService from './contracts/IUserService';
-import BaseController from '../../entities/baseController';
+import BaseController from '@src/entities/baseController';
 
 export default class UserController extends BaseController {
   constructor(private readonly userService: IUserService) {

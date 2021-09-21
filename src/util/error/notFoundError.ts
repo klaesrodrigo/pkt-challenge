@@ -1,4 +1,4 @@
-import { APIError } from '../../entities/apiError';
+import { APIError } from '@src/entities/apiError';
 
 export default class NotFoundError implements APIError {
   code: number;

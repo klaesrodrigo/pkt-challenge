@@ -1,4 +1,4 @@
-import makeUserService from '../../../app/users/factories/makeUserService';
+import makeUserService from '@src/app/users/factories/makeUserService';
 import HobbieService from '../hobbie.service';
 
 const makeHobbieService = (): HobbieService => {

@@ -1,4 +1,4 @@
-import IHobbie from '../../../entities/hobbie';
+import IHobbie from '@src/entities/hobbie';
 
 export default interface IHobbieService {
   list: () => Promise<IHobbie[]>;

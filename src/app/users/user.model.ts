@@ -1,4 +1,4 @@
-import IUser from '../../entities/user';
+import IUser from '@src/entities/user';
 import { model, Model, Schema } from 'mongoose';
 
 const UserSchema: Schema = new Schema({
