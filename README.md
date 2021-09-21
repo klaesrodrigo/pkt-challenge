@@ -2,7 +2,7 @@
 
 API desenvolvida para o desafio da Paketá
 
-## rtequisitos
+## Requisitos
 
 - Docker
 - Docker-compose
