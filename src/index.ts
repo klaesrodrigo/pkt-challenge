@@ -1,4 +1,5 @@
 import './util/module-alias';
+import 'dotenv/config';
 import app from './config/app';
 import { logger } from './util/logger';
 

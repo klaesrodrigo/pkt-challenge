@@ -9,7 +9,9 @@ import swaggerUi = require('swagger-ui-express');
 const app = express();
 
 mongoose
-  .connect('mongodb://localhost:27017/pkt_db')
+  .connect(
+    process.env.MDB_CONNECTION_STRING || 'mongodb://localhost:27017/pkt_db'
+  )
   .then(() => logger.info('Database has been connected'))
   .catch((err) => logger.error(err));
 
