@@ -1,4 +1,4 @@
-import IHobbie from 'src/entities/hobbie';
+import IHobbie from '../../entities/hobbie';
 import NotFoundError from '../../util/error/notFoundError';
 import IUserService from '../users/contracts/IUserService';
 import IHobbieService from './contracts/IHobbieService';

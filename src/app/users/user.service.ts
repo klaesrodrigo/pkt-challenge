@@ -1,5 +1,5 @@
-import IHobbie from 'src/entities/hobbie';
-import IUser from 'src/entities/user';
+import IHobbie from '../../entities/hobbie';
+import IUser from '../../entities/user';
 import NotFoundError from '../../util/error/notFoundError';
 import IUserService from './contracts/IUserService';
 import User from './user.model';
