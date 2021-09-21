@@ -1,25 +1,26 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is a simple example NodeJS API project to demonstrate Swagger Documentation",
+    "description": "Documentação com os endpoints disponibilizados na API",
     "version": "1.0.0",
-    "title": "Tasks API",
+    "title": "Paketa Challenge API",
     "contact": {
-      "email": "abc@gmail.com"
-    },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      "email": "rodrigoklaes@gmail.com"
     }
   },
   "schemes": ["http"],
-  "host": "localhost:3080",
+  "host": "localhost:3000",
   "basePath": "/api",
+  "tags": {
+    "name": "User",
+    "Description": ""
+  },
   "paths": {
-    "/todos": {
+    "/users": {
       "get": {
-        "summary": "Get all the tasks",
-        "description": "Get all the tasks",
+        "name": "User",
+        "summary": "Get all the users",
+        "description": "Get all the users",
         "produces": ["application/json"],
         "parameters": [],
         "responses": {
@@ -28,39 +29,33 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/todosResponse"
+                "$ref": "#/definitions/userObject"
               }
             }
           },
-          "400": {
-            "description": "Invalid status value",
+          "500": {
+            "description": "Intenal Server Error",
             "schema": {
               "$ref": "#/definitions/InvalidResponse"
             }
           }
         }
-      }
-    },
-    "/todo": {
+      },
       "post": {
-        "summary": "Save the task",
-        "description": "Save the task",
+        "name": "User",
+        "summary": "Create new users",
+        "description": "Create new users",
         "produces": ["application/json"],
         "consumes": ["application/json"],
         "parameters": [
           {
             "in": "body",
             "name": "body",
-            "description": "task object",
+            "description": "user object",
             "required": true,
             "schema": {
               "type": "object",
-              "properties": {
-                "task": {
-                  "type": "object",
-                  "$ref": "#/definitions/Task"
-                }
-              }
+              "$ref": "#/definitions/userObjectToCreateorUpdate"
             }
           }
         ],
@@ -68,10 +63,8 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/todosResponse"
-              }
+              "type": "object",
+              "$ref": "#/definitions/userObject"
             }
           },
           "400": {
@@ -79,20 +72,69 @@
             "schema": {
               "$ref": "#/definitions/InvalidResponse"
             }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          },
+          "500": {
+            "description": "Intenal Server Error",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
           }
         }
       }
     },
-    "/todos/{id}": {
-      "put": {
-        "summary": "Update the tasks",
-        "description": "Update the tasks",
+    "/users/{id}": {
+      "name": "User",
+      "get": {
+        "summary": "Get one user",
+        "description": "Get one user",
         "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "task id that needs to be deleted",
+            "description": "user id that needs to be got",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/userObjectWithDetails"
+            }
+          },
+          "404": {
+            "description": "User not found.",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          },
+          "500": {
+            "description": "Intenal Server Error",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "name": "User",
+        "summary": "Update user",
+        "description": "Update user",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "user id that needs to be updated",
             "required": true,
             "type": "string"
           },
@@ -103,27 +145,54 @@
             "required": true,
             "schema": {
               "type": "object",
-              "properties": {
-                "task": {
-                  "type": "object",
-                  "$ref": "#/definitions/Task"
-                }
-              }
+              "$ref": "#/definitions/userObjectToCreateorUpdate"
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/todosResponse"
-              }
-            }
+          "204": {
+            "description": "successful operation"
           },
           "400": {
             "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          },
+          "500": {
+            "description": "Intenal Server Error",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "name": "User",
+        "summary": "Delete user",
+        "description": "Delete user",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "user id that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "Intenal Server Error",
             "schema": {
               "$ref": "#/definitions/InvalidResponse"
             }
@@ -131,16 +200,98 @@
         }
       }
     },
-    "/todo/{id}": {
-      "delete": {
-        "summary": "Delete the task",
-        "description": "Delete the task",
+    "/hobbies": {
+      "get": {
+        "name": "Hobbie",
+        "summary": "Get all hobbies",
+        "description": "Get all hobbies",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/hobbieObject"
+              }
+            }
+          },
+          "500": {
+            "description": "Intenal Server Error",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hobbies/user/{user_id}": {
+      "post": {
+        "name": "Hobbie",
+        "summary": "Create new hobbie",
+        "description": "Create new hobbie",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User id that needs to associete hobbie to user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "hobbie object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/hobbieObjectToCreateOrUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/hobbieObject"
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          },
+          "500": {
+            "description": "Intenal Server Error",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+    "/hobbies/{id}": {
+      "name": "Hobbie",
+      "get": {
+        "summary": "Get one hobbie",
+        "description": "Get one hobbie",
         "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "task id that needs to be deleted",
+            "description": "Hobbie id that needs to be got",
             "required": true,
             "type": "string"
           }
@@ -149,14 +300,92 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/todosResponse"
-              }
+              "type": "object",
+              "$ref": "#/definitions/hobbieObject"
             }
+          },
+          "404": {
+            "description": "Hobbie not found.",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          },
+          "500": {
+            "description": "Intenal Server Error",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "name": "Hobbie",
+        "summary": "Update hobbie",
+        "description": "Update hobbie",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Hobbie id that needs to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "task object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/hobbieObjectToCreateOrUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
           },
           "400": {
             "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          },
+          "500": {
+            "description": "Intenal Server Error",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "name": "Hobbie",
+        "summary": "Delete hobbie",
+        "description": "Delete hobbie",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Hobbie id that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "Intenal Server Error",
             "schema": {
               "$ref": "#/definitions/InvalidResponse"
             }
@@ -165,34 +394,78 @@
       }
     }
   },
+
   "definitions": {
-    "todosResponse": {
+    "userObject": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "task": {
+        "_id": {
           "type": "string"
         },
-        "assignee": {
+        "name": {
           "type": "string"
         },
-        "status": {
+        "hobbies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "userObjectToCreateorUpdate": {
+      "type": "object",
+      "properties": {
+        "name": {
           "type": "string"
         }
       }
     },
-    "Task": {
+    "userObjectWithDetails": {
       "type": "object",
       "properties": {
-        "task": {
+        "_id": {
           "type": "string"
         },
-        "assignee": {
+        "name": {
           "type": "string"
         },
-        "status": {
+        "hobbies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/hobbieObject"
+          }
+        }
+      }
+    },
+    "hobbieObject": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "experienceLevel": {
+          "type": "string"
+        }
+      }
+    },
+    "hobbieObjectToCreateOrUpdate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "experienceLevel": {
           "type": "string"
         }
       }
@@ -200,10 +473,13 @@
     "InvalidResponse": {
       "type": "object",
       "properties": {
-        "statusCode": {
-          "type": "string"
+        "code": {
+          "type": "number"
         },
         "message": {
+          "type": "string"
+        },
+        "error": {
           "type": "string"
         }
       }
